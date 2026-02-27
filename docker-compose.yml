@@ -1,7 +1,16 @@
 services:
-  stock-app:
+  redis:
+    image: redis:alpine
+
+  api:
     build: .
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
+    depends_on:
+      - redis
+
+  producer:
+    build: .
+    command: python producer.py
+    depends_on:
+      - redis
