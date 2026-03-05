@@ -1,4 +1,5 @@
 fastapi
 uvicorn
-requests
 redis
+requests
+psycopg2-binary

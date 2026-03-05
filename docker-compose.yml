@@ -1,16 +1,31 @@
 services:
-  redis:
-    image: redis:alpine
-
-  api:
+  app:
     build: .
+    command: uvicorn app:app --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000"
     depends_on:
       - redis
+      - db
+    volumes:
+      - .:/app
 
-  producer:
+  worker:
     build: .
-    command: python producer.py
+    command: python worker.py
     depends_on:
       - redis
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: stock_db
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: redis:alpine

@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS search_history (
+    id SERIAL PRIMARY KEY,
+    ticker VARCHAR(10) NOT NULL,
+    search_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
