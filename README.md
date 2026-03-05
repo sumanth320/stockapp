@@ -1,2 +1,2 @@
 # stockapp
-Project to create a minimalistic stock tracker app
+Project to create a stock tracker app for a full fledged DE project
